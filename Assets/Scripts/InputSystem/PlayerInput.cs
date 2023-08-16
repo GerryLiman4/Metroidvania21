@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     public event Action Jump;
     public event Action Dash;
     public event Action Shoot;
+    public event Action Inventory;
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -57,7 +58,10 @@ public class PlayerInput : MonoBehaviour
     {
         SelectInput(value.isPressed);
     }
-
+    public void OnInventory(InputValue value)
+    {
+        InventoryInput(value.isPressed);
+    }
 #endif
 
     public void MoveInput(Vector2 newMoveDirection)
@@ -85,6 +89,10 @@ public class PlayerInput : MonoBehaviour
     {
         Debug.Log(newShootState);
         Shoot?.Invoke();
+    }
+    private void InventoryInput(bool isPressed)
+    {
+        Inventory?.Invoke();
     }
     public void PauseInput(bool newPauseState)
     {
