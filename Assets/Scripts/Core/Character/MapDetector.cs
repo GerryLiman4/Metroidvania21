@@ -1,3 +1,4 @@
+using J98214;
 using System;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class MapDetector : MonoBehaviour
     [SerializeField] private MapId currentMapId;
 
 #if UNITY_EDITOR
+    [SerializeField] private Move playerMovement;
     [SerializeField] private PlayerInputManager playerInput;
 #endif
     private const float raycastRange = 0.1f;
@@ -21,6 +23,11 @@ public class MapDetector : MonoBehaviour
     private void OnOpenMap()
     {
         GlobalEventSystem.OpenMap();
+    }
+    private void LateUpdate()
+    {
+        Vector2 moveDirection = playerMovement.GetMoveDirection();
+        if (moveDirection.x != 0 || moveDirection.y != 0) CheckMap();
     }
 #endif
     public void CheckMap()

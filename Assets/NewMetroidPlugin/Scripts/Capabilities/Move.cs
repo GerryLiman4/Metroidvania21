@@ -11,7 +11,6 @@ namespace J98214
         [SerializeField, Range(0f, 100f)] private float _maxSpeed = 5.5f;
         [SerializeField, Range(0f, 100f)] private float _maxAcceleration = 100f;
         [SerializeField, Range(0f, 100f)] private float _maxAirAcceleration = 100f;
-        [SerializeField] private MapDetector mapDetector;
 
         private Controller _controller;
         private Vector2 _direction, _desiredVelocity, _velocity;
@@ -32,7 +31,6 @@ namespace J98214
         {
             _direction.x = _controller.input.RetrieveMoveInput(this.gameObject);
             _desiredVelocity = new Vector2(_direction.x, 0f) * Mathf.Max(_maxSpeed - _collisionDataRetriever.Friction, 0f);
-            CheckMap();
         }
 
         private void FixedUpdate()
@@ -47,10 +45,9 @@ namespace J98214
             _body.velocity = _velocity;
         }
 
-        private void CheckMap()
+        public Vector2 GetMoveDirection()
         {
-            if (mapDetector == null) return;
-            if (_direction.x != 0 || _direction.y != 0) mapDetector.CheckMap();
+            return _direction;
         }
     }
 }

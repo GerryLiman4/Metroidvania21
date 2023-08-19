@@ -46,8 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32768
   currentMapId: 0
+  playerMovement: {fileID: 3736710948348231784}
+  playerInput: {fileID: 0}
 --- !u!1 &9100041130004973116
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +335,6 @@ MonoBehaviour:
   _maxSpeed: 5.5
   _maxAcceleration: 100
   _maxAirAcceleration: 100
-  mapDetector: {fileID: 5136305320937370389}
 --- !u!114 &8639945992801498379
 MonoBehaviour:
   m_ObjectHideFlags: 0

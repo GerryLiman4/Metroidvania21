@@ -4,7 +4,7 @@ public class MapSectionUI : MonoBehaviour
 {
     [SerializeField] private MapId mapId;
     [SerializeField] private RectTransform mainCharacterIconRoot;
-    [SerializeField] private RectTransform checkPointIconRoot;
+    [SerializeField] private GameObject checkPoint;
 
     [SerializeField] private bool isDiscovered = false;
     public MapId GetMapId()
@@ -16,6 +16,13 @@ public class MapSectionUI : MonoBehaviour
         mainCharacterIcon.transform.SetParent(mainCharacterIconRoot);
         mainCharacterIcon.transform.localPosition = Vector3.zero;
 
-        if (isDiscovered) return;
+        isDiscovered = true;
+        if (checkPoint != null) checkPoint.SetActive(isDiscovered);
+    }
+    public void Initialize(bool isDiscovered)
+    {
+        this.isDiscovered = isDiscovered;
+
+        if (checkPoint != null) checkPoint.SetActive(isDiscovered);
     }
 }
