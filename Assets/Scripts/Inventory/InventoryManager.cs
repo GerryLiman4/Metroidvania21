@@ -8,7 +8,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Dictionary<ItemId, Inventory> inventoryList = new Dictionary<ItemId, Inventory>();
 #if UNITY_EDITOR
     [SerializeField] private GameObject[] prefabExamples;
-    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private PlayerInputManager playerInput;
 #endif
     private void Awake()
     {
@@ -75,15 +75,19 @@ public class InventoryManager : MonoBehaviour
 #if UNITY_EDITOR
     private void OnInventoryOpen()
     {
-#if UNITY_EDITOR
         foreach (GameObject prefabExample in prefabExamples)
         {
             AddItem(prefabExample.GetComponent<BaseItem>(), 15);
         }
-#endif
         GlobalEventSystem.OpenInventory();
     }
 #endif
+    private void OnDestroy()
+    {
+#if UNITY_EDITOR
+        playerInput.Inventory -= OnInventoryOpen;
+#endif
+    }
 }
 
 [Serializable]

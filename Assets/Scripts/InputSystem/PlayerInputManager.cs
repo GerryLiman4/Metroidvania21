@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInputManager : MonoBehaviour
 {
     [Header("In Game Controller")]
     [Header("Character Input Values")]
@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour
     public event Action Dash;
     public event Action Shoot;
     public event Action Inventory;
+    public event Action Map;
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -32,7 +33,6 @@ public class PlayerInput : MonoBehaviour
     {
         MoveInput(value.Get<Vector2>());
     }
-
     public void OnJump(InputValue value)
     {
         JumpInput(value.isPressed);
@@ -62,23 +62,24 @@ public class PlayerInput : MonoBehaviour
     {
         InventoryInput(value.isPressed);
     }
+    public void OnMap(InputValue value)
+    {
+        MapInput(value.isPressed);
+    }
 #endif
 
     public void MoveInput(Vector2 newMoveDirection)
     {
-        Debug.Log(newMoveDirection);
         move = newMoveDirection;
     }
 
     public void JumpInput(bool newJumpState)
     {
-        Debug.Log(newJumpState);
         Jump?.Invoke();
     }
 
     public void DashInput(bool newDashState)
     {
-        Debug.Log(newDashState);
         Dash?.Invoke();
     }
     public void CrouchInput(bool newCrouchState)
@@ -87,23 +88,24 @@ public class PlayerInput : MonoBehaviour
     }
     public void ShootInput(bool newShootState)
     {
-        Debug.Log(newShootState);
         Shoot?.Invoke();
     }
     private void InventoryInput(bool isPressed)
     {
         Inventory?.Invoke();
     }
-    public void PauseInput(bool newPauseState)
+    private void MapInput(bool isPressed)
     {
-        if (newPauseState)
-        {
-
-        }
+        Map?.Invoke();
     }
+    public void PauseInput(bool isPressed)
+    {
+        if (isPressed){}
+    }
+   
     private void SelectInput(bool isPressed)
     {
-        Debug.Log("Select");
+       
     }
     private void OnApplicationFocus(bool hasFocus)
     {

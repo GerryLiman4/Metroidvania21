@@ -44,5 +44,10 @@ namespace J98214
 
             _body.velocity = _velocity;
         }
+
+        public Vector2 GetMoveDirection()
+        {
+            return _direction;
+        }
     }
 }
