@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         }
 
         GlobalEventSystem.OnStartGame += OnStartGame;
+        GlobalEventSystem.InitializeSetting();
     }
 
     private void OnStartGame()

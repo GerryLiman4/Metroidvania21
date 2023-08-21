@@ -10,6 +10,8 @@ public static class GlobalEventSystem
     // Scene
     public static event Action OnGoToMainMenu;
     public static event Action OnStartGame;
+
+    public static GameSetting settingInstance;
     #region InGame
     public static void OpenInventory()
     {
@@ -42,5 +44,11 @@ public static class GlobalEventSystem
         OnChangeMap = null;
         OnGoToMainMenu = null;
     }
-
+    public static void InitializeSetting()
+    {
+        if(settingInstance == null)
+        {
+            settingInstance = new GameSetting();
+        }
+    }
 }
