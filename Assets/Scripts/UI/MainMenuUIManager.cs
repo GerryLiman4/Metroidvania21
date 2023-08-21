@@ -11,7 +11,6 @@ public class MainMenuUIManager : MonoBehaviour
     }
     private void OnSelected(int selectedIndex)
     {
-        Debug.Log(selectedIndex);
         menuUIManager.Hide();
         switch (selectedIndex)
         {

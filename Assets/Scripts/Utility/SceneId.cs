@@ -1,16 +1,7 @@
 using UnityEngine;
 
-public class SceneId : MonoBehaviour
+public enum SceneId
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    MainMenu = 0,
+    InGame = 1,
 }

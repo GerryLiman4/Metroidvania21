@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private LoadingScreenManager loadingScreenManager; 
+    [SerializeField] private LoadingScreenManager loadingScreenManager;
+    [SerializeField] private ScreenFader screenFader;
     public static GameManager instance;
     private void Awake()
     {
@@ -24,22 +25,32 @@ public class GameManager : MonoBehaviour
         {
             loadingScreenManager = FindObjectOfType<LoadingScreenManager>();
         }
+        if(screenFader == null)
+        {
+            screenFader = FindObjectOfType<ScreenFader>();
+        }
+
         GlobalEventSystem.OnStartGame += OnStartGame;
     }
 
     private void OnStartGame()
     {
-        loadingScreenManager.ShowLoadingScreen();
-        StartCoroutine(LoadScene(1));
+        StartCoroutine(LoadScene((int)SceneId.InGame));
     }
     private IEnumerator LoadScene(int sceneIndex)
     {
+        yield return StartCoroutine(screenFader.FadeOut());
+
+        loadingScreenManager.ShowLoadingScreen();
+
         AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(sceneIndex);
         while (!loadingOperation.isDone)
         {
-            yield return new WaitForSeconds(loadingScreenManager.GetMinLoadTime());
+            yield return new WaitForSecondsRealtime(loadingScreenManager.GetMinLoadTime());
         }
         loadingScreenManager.HideLoadingScreen();
+
+        yield return StartCoroutine(screenFader.FadeIn());
     }
 
     private void OnDestroy()
