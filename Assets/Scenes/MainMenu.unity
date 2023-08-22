@@ -941,10 +941,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4251765513920033927, guid: cfa0afc97d2112a428e3d4993e83878c, type: 3}
-      propertyPath: minimalLoadingTime
-      value: 3.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7487405337964777398, guid: cfa0afc97d2112a428e3d4993e83878c, type: 3}
       propertyPath: m_Name
       value: LoadingUI

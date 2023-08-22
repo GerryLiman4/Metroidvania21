@@ -49,9 +49,19 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(loadingScreenManager.GetMinLoadTime());
         }
+        InitializeGame();
         loadingScreenManager.HideLoadingScreen();
 
         yield return StartCoroutine(screenFader.FadeIn());
+    }
+    private void InitializeGame()
+    {
+        CurrencyManager playerCurrency = FindObjectOfType<CurrencyManager>();
+        if(playerCurrency != null)
+        {
+            // placeholder should get from save file
+            playerCurrency.SetAmount(0);
+        }
     }
 
     private void OnDestroy()
