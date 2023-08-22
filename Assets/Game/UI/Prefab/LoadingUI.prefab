@@ -159,11 +159,11 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3827315469886729656}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0e4ec6287a80242449a324d5967af5ad, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -489,4 +489,4 @@ MonoBehaviour:
   loadingText: {fileID: 6304952751340353610}
   gameIcon: {fileID: 3880995835630354637}
   background: {fileID: 3251910320076668233}
-  minimalLoadingTime: 1
+  minimalLoadingTime: 3.5
