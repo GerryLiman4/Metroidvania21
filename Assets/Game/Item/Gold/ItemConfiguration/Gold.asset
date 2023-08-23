@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 413691b4d6eb15e43b93d465944c4c24, type: 3}
-  m_Name: ManaPotion
+  m_Name: Gold
   m_EditorClassIdentifier: 
-  itemId: 2
-  itemIcon: {fileID: 21300000, guid: ae4dd54a32881374cb316c849f51e2a3, type: 3}
-  itemName: Mana Potion
-  description: Ordinary Mana Potion
-  maxAmount: 99
-  isConsumAble: 1
+  itemId: 100001
+  itemIcon: {fileID: 0}
+  itemDropSprite: {fileID: 21300000, guid: a99af32c146a5fd44a5d320ea0813880, type: 3}
+  itemName: Gold
+  description: Good Ol Gold
+  maxAmount: 99999999
+  isConsumable: 0

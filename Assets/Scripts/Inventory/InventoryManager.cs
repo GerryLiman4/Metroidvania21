@@ -6,6 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private int maxCapacity = 20;
     [SerializeField] private Dictionary<ItemId, Inventory> inventoryList = new Dictionary<ItemId, Inventory>();
+    [SerializeField] private CurrencyManager currencyManager;
 #if UNITY_EDITOR
     [SerializeField] private GameObject[] prefabExamples;
     [SerializeField] private PlayerInputManager playerInput;
@@ -87,6 +88,27 @@ public class InventoryManager : MonoBehaviour
 #if UNITY_EDITOR
         playerInput.Inventory -= OnInventoryOpen;
 #endif
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        collision.transform.TryGetComponent<DropItem>(out DropItem item);
+
+        if (!item) return;
+
+        ItemId itemId = item.GetItemId();
+        int amount = item.GetAmount();
+
+        switch (itemId)
+        {
+            case ItemId.Gold:
+                currencyManager.AddAmount(amount);
+                break;
+            default:
+                AddItem(item, amount);
+                break;
+        }
+
+        item.PickUp();
     }
 }
 
