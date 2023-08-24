@@ -5,4 +5,6 @@ public enum ItemId
     ManaPotion = 0_00002,
 
     Gold = 1_00001,
+
+    DungeonKey = 2_00001,
 }

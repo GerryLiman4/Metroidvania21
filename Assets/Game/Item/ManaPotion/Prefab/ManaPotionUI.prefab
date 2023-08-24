@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 7423287231301197377}
   - component: {fileID: 3167993642432331219}
   m_Layer: 5
-  m_Name: ManaPotion
+  m_Name: ManaPotionUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -7,6 +7,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private int maxCapacity = 20;
     [SerializeField] private Dictionary<ItemId, Inventory> inventoryList = new Dictionary<ItemId, Inventory>();
     [SerializeField] private CurrencyManager currencyManager;
+
+    [SerializeField] private ItemPickUpFader itemPickUpFader;
 #if UNITY_EDITOR
     [SerializeField] private GameObject[] prefabExamples;
     [SerializeField] private PlayerInputManager playerInput;
@@ -67,7 +69,6 @@ public class InventoryManager : MonoBehaviour
     {
         return true;
     }
-
     public Dictionary<ItemId, Inventory> GetInventory()
     {
         return inventoryList;
@@ -76,10 +77,6 @@ public class InventoryManager : MonoBehaviour
 #if UNITY_EDITOR
     private void OnInventoryOpen()
     {
-        foreach (GameObject prefabExample in prefabExamples)
-        {
-            AddItem(prefabExample.GetComponent<BaseItem>(), 15);
-        }
         GlobalEventSystem.OpenInventory();
     }
 #endif
@@ -97,7 +94,7 @@ public class InventoryManager : MonoBehaviour
 
         ItemId itemId = item.GetItemId();
         int amount = item.GetAmount();
-
+        Sprite itemSprite = item.itemConfiguration.GetItemDropSprite();
         switch (itemId)
         {
             case ItemId.Gold:
@@ -109,6 +106,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         item.PickUp();
+        itemPickUpFader.ShowGetItem(itemSprite);
     }
 }
 
