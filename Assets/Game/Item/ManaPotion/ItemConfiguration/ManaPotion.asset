@@ -18,4 +18,8 @@ MonoBehaviour:
   itemName: Mana Potion
   description: Ordinary Mana Potion
   maxAmount: 99
+  canExpired: 0
+  isFloating: 0
+  isRotating: 0
+  isStatic: 0
   isConsumable: 1

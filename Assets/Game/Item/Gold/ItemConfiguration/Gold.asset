@@ -18,4 +18,8 @@ MonoBehaviour:
   itemName: Gold
   description: Good Ol Gold
   maxAmount: 99999999
+  canExpired: 0
+  isFloating: 0
+  isRotating: 1
+  isStatic: 0
   isConsumable: 0

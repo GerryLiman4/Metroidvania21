@@ -9,6 +9,12 @@ public class ItemConfiguration : ScriptableObject
     [SerializeField] private string itemName;
     [SerializeField] private string description;
     [SerializeField] private int maxAmount = 99;
+
+    [SerializeField] public bool canExpired;
+    [SerializeField] public bool isFloating;
+    [SerializeField] public bool isRotating;
+    [SerializeField] public bool isStatic = false;
+
     public bool isConsumable = false;
 
     public int GetMaxAmount()
