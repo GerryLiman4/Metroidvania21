@@ -16,6 +16,7 @@ public class PlayerInputManager : MonoBehaviour
     public event Action Shoot;
     public event Action Inventory;
     public event Action Map;
+    public event Action Interact;
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -66,6 +67,10 @@ public class PlayerInputManager : MonoBehaviour
     {
         MapInput(value.isPressed);
     }
+    public void OnInteract(InputValue value)
+    {
+        InteractInput(value.isPressed);
+    }
 #endif
 
     public void MoveInput(Vector2 newMoveDirection)
@@ -98,11 +103,15 @@ public class PlayerInputManager : MonoBehaviour
     {
         Map?.Invoke();
     }
+    private void InteractInput(bool isPressed)
+    {
+        Interact?.Invoke();
+    }
     public void PauseInput(bool isPressed)
     {
         if (isPressed){}
     }
-   
+
     private void SelectInput(bool isPressed)
     {
        
@@ -115,5 +124,14 @@ public class PlayerInputManager : MonoBehaviour
     private void SetCursorState(bool newState)
     {
         Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+    }
+    private void OnDestroy()
+    {
+        Jump = null;
+        Dash = null;
+        Shoot = null;
+        Inventory = null;
+        Map = null;
+        Interact = null;
     }
 }

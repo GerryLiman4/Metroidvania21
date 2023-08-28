@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 25
   m_Sprite: {fileID: 21300000, guid: a99af32c146a5fd44a5d320ea0813880, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -100,12 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemConfiguration: {fileID: 11400000, guid: a3100c76d722dac428fe095122740b6e, type: 2}
-  canExpired: 0
-  isFloating: 0
-  isRotating: 1
-  isStatic: 0
   rotatingSpeed: 0.2
-  amount: 5
+  amount: 1
   spriteRenderer: {fileID: 8994696619640190616}
   selfCollider: {fileID: 3237584367769501031}
   rigidBody: {fileID: 883245170739452579}
@@ -118,7 +114,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1125467479398052184}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: d96471d43c4ef5e408220eaed82e6072, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 65
@@ -167,10 +163,10 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 20266412bc71a5147939e91a4e8d42cf, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class DropItem : BaseItem
 {
-    [SerializeField] private bool canExpired;
-    [SerializeField] private bool isFloating;
-    [SerializeField] private bool isRotating;
-    [SerializeField] private bool isStatic = false;
-
     [Range(0.1f, 2f)]
     [SerializeField] private float rotatingSpeed = 0.1f;
     [SerializeField] private int amount;
@@ -20,7 +15,7 @@ public class DropItem : BaseItem
     }
     private void Update()
     {
-        if (isRotating)
+        if (itemConfiguration.isRotating)
         {
             Rotate();
         }
@@ -43,23 +38,24 @@ public class DropItem : BaseItem
     {
         return amount;
     }
-    public ItemId GetItemId()
+    public void SetAmount(int amount)
     {
-        return itemConfiguration.GetItemId();
+        this.amount = amount;
     }
+
     public void PickUp()
     {
         Destroy(gameObject);
     }
     public void SetStatic(bool isStatic)
     {
-        this.isStatic = isStatic;
+        itemConfiguration.isStatic = isStatic;
 
         SetFreezePosition();
     }
     private void SetFreezePosition()
     {
-        if (isStatic)
+        if (itemConfiguration.isStatic)
         {
             rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
             return;
@@ -70,4 +66,8 @@ public class DropItem : BaseItem
         }
     }
 
+    public void DropPush(Vector2 direction, float pushPower)
+    {
+        rigidBody.AddForce(direction * pushPower,ForceMode2D.Force);
+    }
 }

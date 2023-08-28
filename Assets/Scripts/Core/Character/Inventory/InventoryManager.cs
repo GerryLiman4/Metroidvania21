@@ -73,6 +73,11 @@ public class InventoryManager : MonoBehaviour
     {
         return inventoryList;
     }
+    public bool CheckItemExist(ItemId itemId)
+    {
+        if (!inventoryList.ContainsKey(itemId)) return false;
+        return true;
+    }
 
 #if UNITY_EDITOR
     private void OnInventoryOpen()
@@ -92,7 +97,7 @@ public class InventoryManager : MonoBehaviour
 
         if (!item) return;
 
-        ItemId itemId = item.GetItemId();
+        ItemId itemId = item.itemConfiguration.GetItemId();
         int amount = item.GetAmount();
         Sprite itemSprite = item.itemConfiguration.GetItemDropSprite();
         switch (itemId)

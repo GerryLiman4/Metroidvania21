@@ -5,6 +5,7 @@ public static class GlobalEventSystem
     // InGame
     public static event Action OnOpenInventory;
     public static event Action OnOpenMap;
+    public static event Action OnInteract;
 
     public static event Action<MapId> OnChangeMap;
     // Scene
@@ -24,6 +25,10 @@ public static class GlobalEventSystem
     public static void ChangeMap(MapId mapId)
     {
         OnChangeMap?.Invoke(mapId);
+    }
+    public static void Interact()
+    {
+        OnInteract?.Invoke();
     }
     #endregion
 
