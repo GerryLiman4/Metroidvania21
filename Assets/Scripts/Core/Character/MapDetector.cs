@@ -1,4 +1,3 @@
-using J98214;
 using UnityEngine;
 
 public class MapDetector : MonoBehaviour
@@ -7,7 +6,7 @@ public class MapDetector : MonoBehaviour
     [SerializeField] private MapId currentMapId;
 
 #if UNITY_EDITOR
-    [SerializeField] private Move playerMovement;
+    [SerializeField] private PlayerMove playerMovement;
     [SerializeField] private PlayerInputManager playerInput;
 #endif
     private const float raycastRange = 0.1f;

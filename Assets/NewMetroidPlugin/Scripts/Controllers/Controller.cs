@@ -1,10 +1,9 @@
 using UnityEngine;
 
-namespace J98214
+public class Controller : MonoBehaviour
 {
-    public class Controller : MonoBehaviour
-    {
-        public InputController input = null;
-        public Animator animator;
-    }
+    [SerializeField] public InputController input = null;
+    [SerializeField] protected StateId currentState;
+    [SerializeField] protected StateId previousState;
 }
+
