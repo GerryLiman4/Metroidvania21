@@ -32,6 +32,7 @@ public class CollisionDataRetriever : MonoBehaviour
     {
         for (int i = 0; i < collision.contactCount; i++)
         {
+            Debug.Log(collision.collider.gameObject.layer);
             ContactNormal = collision.GetContact(i).normal;
             OnGround |= ContactNormal.y >= 0.9f;
             OnWall = Mathf.Abs(ContactNormal.x) >= 0.9f;
@@ -40,6 +41,7 @@ public class CollisionDataRetriever : MonoBehaviour
 
     private void RetrieveFriction(Collision2D collision)
     {
+        if (collision.rigidbody == null) return;
         _material = collision.rigidbody.sharedMaterial;
 
         Friction = 0;
