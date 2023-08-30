@@ -12,6 +12,11 @@ public class Jump : MonoBehaviour
     [SerializeField, Range(0f, 0.3f)] private float _coyoteTime = 0.2f;
     [SerializeField, Range(0f, 0.3f)] private float _jumpBufferTime = 0.2f;
 
+    [SerializeField] protected bool hasKnockback = false;
+    [SerializeField] protected float knockbackForce = 1.5f;
+
+    [SerializeField] AnimationCurve knockbackCurve;
+
     private Rigidbody2D _body;
     private Vector2 _velocity;
 
@@ -120,6 +125,14 @@ public class Jump : MonoBehaviour
     {
         _body.gravityScale = 0f;
         _velocity = new Vector2(_body.velocity.x, 0f);
+        _body.velocity = _velocity;
+    }
+    public virtual void SetKnockback(float time,Vector3 direction)
+    {
+        if (!hasKnockback) return;
+        _velocity = _body.velocity;
+        _velocity.y = knockbackForce * knockbackCurve.Evaluate(time);
+
         _body.velocity = _velocity;
     }
 

@@ -7,5 +7,7 @@ public enum StateId
     Jumping,
     Dash,
     AirDash,
-    Attack
+    Attack,
+    Hurt,
+    Dead
 }

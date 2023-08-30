@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 4287036543824018881}
   - component: {fileID: 1723562870623342892}
   - component: {fileID: 704148648056716530}
+  - component: {fileID: 7295298282905375116}
   m_Layer: 7
   m_Name: Character
   m_TagString: Untagged
@@ -660,9 +661,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 10
-  maxDashSpeed: 20
   _maxAcceleration: 100
   _maxAirAcceleration: 100
+  hasKnockback: 1
+  knockbackForce: 12
+  maxDashSpeed: 20
   inputDash: 0
   dashTime: 0.2
   distanceBetweenImages: 0.1
@@ -697,6 +700,77 @@ MonoBehaviour:
   _upwardMovementMultiplier: 4
   _coyoteTime: 0.2
   _jumpBufferTime: 0.2
+  hasKnockback: 1
+  knockbackForce: 12
+  knockbackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.01304644
+      value: 0.9135571
+      inSlope: 7.0002775
+      outSlope: 7.0002775
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.0426545
+      value: 0.99074566
+      inSlope: 0.80437165
+      outSlope: 0.80437165
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.09483621
+      value: 0.9994401
+      inSlope: 0.15916541
+      outSlope: 0.15916541
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.19969445
+      value: 0.99992156
+      inSlope: -0.16330105
+      outSlope: -0.16330105
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.24056152
+      value: 0.72022915
+      inSlope: -15.044374
+      outSlope: -15.044374
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4000418
+      value: -2.5183287
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &4287036543824018881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,3 +831,21 @@ MonoBehaviour:
   collisionRetriever: {fileID: 8639945992801498379}
   wallMovement: {fileID: 4287036543824018881}
   afterImageEffect: {fileID: 0}
+  health: {fileID: 7295298282905375116}
+--- !u!114 &7295298282905375116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100041130004973116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f658acd1ab0cf24eac030b39e6d6ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  currentHealth: 0
+  factionId: 1
+  hurtStateDuration: 0.4
+  hurtStateTimer: 0

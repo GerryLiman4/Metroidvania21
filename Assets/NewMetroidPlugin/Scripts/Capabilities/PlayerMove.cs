@@ -4,16 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Controller), typeof(CollisionDataRetriever), typeof(Rigidbody2D))]
 public class PlayerMove : Move
 {
-    //[SerializeField, Range(0f, 100f)] private float _maxSpeed = 5.5f;
-    //[SerializeField, Range(0f, 100f)] private float _maxAcceleration = 100f;
-    //[SerializeField, Range(0f, 100f)] private float _maxAirAcceleration = 100f;
-    //private Vector2 _direction, _desiredVelocity, _velocity;
-    //private Rigidbody2D _body;
-
     [SerializeField, Range(0f, 100f)] private float maxDashSpeed = 20f;
-
-    //private float _maxSpeedChange, _acceleration;
-    //private bool _onGround;
 
     public bool inputDash = false;
     public float dashTime;

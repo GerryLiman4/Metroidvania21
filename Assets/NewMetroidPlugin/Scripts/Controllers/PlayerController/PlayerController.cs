@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : Controller
@@ -9,6 +10,7 @@ public class PlayerController : Controller
     [SerializeField] public CollisionDataRetriever collisionRetriever;
     [SerializeField] public WallInteractor wallMovement;
     [SerializeField] public AfterImageEffectPool afterImageEffect;
+    [SerializeField] public PlayerHealth health;
     protected void Awake()
     {
         horizontalMovement.SetAnimationFloat += OnSetAnimation;
@@ -17,7 +19,18 @@ public class PlayerController : Controller
         horizontalMovement.ChangeState += OnChangeState;
 
         jumpMovement.SetAnimationBool += OnSetAnimation;
+
+        health.ChangeState += OnChangeState;
+        health.knockbackTime += OnKnockbackState;
     }
+
+    private void OnKnockbackState(float totalTime,Vector3 direction)
+    {
+        horizontalMovement.Flip(transform, direction.x > 0 ? 1 : -1);
+        horizontalMovement.SetKnockback(totalTime, direction);
+        jumpMovement.SetKnockback(totalTime,direction);
+    }
+
     private void OnChangeState(StateId stateId)
     {
         previousState = currentState;
@@ -27,6 +40,7 @@ public class PlayerController : Controller
     private void Start()
     {
         afterImageEffect.Initialize(spriteRenderer, transform);
+        health.Initialize();
     }
     private void SpawnAfterImage()
     {
@@ -58,16 +72,22 @@ public class PlayerController : Controller
     }
     protected void FixedUpdate()
     {
-        // horizontal movement
-        horizontalMovement.MoveHorizontal(collisionRetriever.OnGround, input.RetrieveMoveInput(this.gameObject));
-
-        // jump Movement
         switch (currentState)
         {
             case (StateId.AirDash):
+                // horizontal movement
+                horizontalMovement.MoveHorizontal(collisionRetriever.OnGround, input.RetrieveMoveInput(this.gameObject));
+
+                // jump Movement
                 jumpMovement.SetAirDashCondition();
                 break;
+            case (StateId.Hurt):
+                break;
             default:
+                // horizontal movement
+                horizontalMovement.MoveHorizontal(collisionRetriever.OnGround, input.RetrieveMoveInput(this.gameObject));
+
+                // jump Movement
                 jumpMovement.JumpMovement(input.RetrieveJumpInput(this.gameObject), collisionRetriever.OnGround);
                 break;
         }
@@ -83,6 +103,8 @@ public class PlayerController : Controller
 
         jumpMovement.SetAnimationBool -= OnSetAnimation;
 
+        health.ChangeState -= OnChangeState;
+        health.knockbackTime -= OnKnockbackState;
     }
 }
 

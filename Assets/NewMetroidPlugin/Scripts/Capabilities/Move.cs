@@ -8,6 +8,9 @@ public class Move : MonoBehaviour
     [SerializeField, Range(0f, 100f)] protected float _maxAcceleration = 100f;
     [SerializeField, Range(0f, 100f)] protected float _maxAirAcceleration = 100f;
 
+    [SerializeField] protected bool hasKnockback = false;
+    [SerializeField] protected float knockbackForce = 2f;
+
     protected Vector2 _direction, _desiredVelocity, _velocity;
     protected Rigidbody2D _body;
 
@@ -47,6 +50,14 @@ public class Move : MonoBehaviour
 
         model.localScale = originalScale;
     }
+    public virtual void Flip(Transform model, int direction)
+    {
+        Vector3 originalScale = model.localScale;
+
+        originalScale.x = Mathf.Abs(originalScale.x) * direction;
+
+        model.localScale = originalScale;
+    }
 
     public virtual void MoveHorizontal(bool onGround, float inputDirection)
     {
@@ -65,5 +76,20 @@ public class Move : MonoBehaviour
     public Vector2 GetMoveDirection()
     {
         return _direction;
+    }
+    public virtual void SetKnockback(float time, Vector3 direction)
+    {
+        if (!hasKnockback) return;
+        _velocity = _body.velocity;
+        float knockbackDirection = direction.x >= 0 ? -1f : 1f;
+        _velocity.x = knockbackForce * knockbackDirection;
+
+        _body.velocity = _velocity;
+
+    }
+    private void OnDestroy()
+    {
+        SetAnimationFloat = null;
+        SetAnimationBool = null;
     }
 }
