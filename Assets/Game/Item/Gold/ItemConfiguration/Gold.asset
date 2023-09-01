@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413691b4d6eb15e43b93d465944c4c24, type: 3}
+  m_Name: Gold
+  m_EditorClassIdentifier: 
+  itemId: 100001
+  itemIcon: {fileID: 0}
+  itemDropSprite: {fileID: 21300000, guid: a99af32c146a5fd44a5d320ea0813880, type: 3}
+  itemName: Gold
+  description: Good Ol Gold
+  maxAmount: 99999999
+  canExpired: 0
+  isFloating: 0
+  isRotating: 1
+  isStatic: 0
+  isConsumable: 0

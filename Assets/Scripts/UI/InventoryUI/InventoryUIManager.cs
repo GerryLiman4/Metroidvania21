@@ -81,7 +81,6 @@ public class InventoryUIManager : MonoBehaviour
             int itemMaxAmount = inventory.Value.item.itemConfiguration.GetMaxAmount();
             Sprite itemIcon = inventory.Value.item.itemConfiguration.GetItemIcon();
             ItemId itemId = inventory.Value.item.itemConfiguration.GetItemId();
-            Debug.Log("itemAmount : " + itemAmount + " " + itemMaxAmount + " " + itemId);
             if (itemAmount > itemMaxAmount)
             {
                 do

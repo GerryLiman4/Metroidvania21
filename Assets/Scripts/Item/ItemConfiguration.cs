@@ -5,10 +5,17 @@ public class ItemConfiguration : ScriptableObject
 {
     [SerializeField] private ItemId itemId;
     [SerializeField] private Sprite itemIcon;
+    [SerializeField] private Sprite itemDropSprite;
     [SerializeField] private string itemName;
     [SerializeField] private string description;
     [SerializeField] private int maxAmount = 99;
-    public bool isConsumAble = false;
+
+    [SerializeField] public bool canExpired;
+    [SerializeField] public bool isFloating;
+    [SerializeField] public bool isRotating;
+    [SerializeField] public bool isStatic = false;
+
+    public bool isConsumable = false;
 
     public int GetMaxAmount()
     {
@@ -31,5 +38,8 @@ public class ItemConfiguration : ScriptableObject
     {
         return itemIcon;
     }
-
+    public Sprite GetItemDropSprite()
+    {
+        return itemDropSprite;
+    }
 }

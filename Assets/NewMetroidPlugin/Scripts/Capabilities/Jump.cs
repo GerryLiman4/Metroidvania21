@@ -107,6 +107,7 @@ namespace J98214
                 _coyoteCounter = 0;
                 _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * _jumpHeight * _upwardMovementMultiplier);
                 _isJumping = true;
+                _controller.animator.SetBool(AnimationId.Jump.ToString(), _isJumping);
 
                 if (_velocity.y > 0f)
                 {
