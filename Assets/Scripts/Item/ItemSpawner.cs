@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
-    [SerializeField] private float maxItemBurstSpeed = 3f;
-
     [SerializeField] private bool isBurst = false;
     [SerializeField] private DropItem itemPrefab;
 

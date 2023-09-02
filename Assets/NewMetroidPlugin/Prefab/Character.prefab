@@ -390,11 +390,11 @@ GameObject:
   - component: {fileID: 1037839351825033178}
   - component: {fileID: 3736710948348231784}
   - component: {fileID: 8639945992801498379}
-  - component: {fileID: 2767170608841250987}
   - component: {fileID: 4287036543824018881}
   - component: {fileID: 1723562870623342892}
   - component: {fileID: 704148648056716530}
   - component: {fileID: 7295298282905375116}
+  - component: {fileID: 3413707028943592630}
   m_Layer: 7
   m_Name: Character
   m_TagString: Untagged
@@ -682,7 +682,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b072168d7434313448896cb81ef36ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2767170608841250987
+  stickableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &4287036543824018881
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -691,7 +694,85 @@ MonoBehaviour:
   m_GameObject: {fileID: 9100041130004973116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b627dd1f413c37949a13eb1b0d101152, type: 3}
+  m_Script: {fileID: 11500000, guid: 824941a99a1e5704a940132f273ebe1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wallSlideMaxSpeed: 5
+  _wallJumpClimb: {x: 12, y: 15}
+  _wallJumpBounce: {x: 10.7, y: 15}
+  _wallJumpLeap: {x: 14, y: 15}
+  _wallStickTime: 0.25
+--- !u!95 &1723562870623342892
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100041130004973116}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bab25ae7cf6dcad41a8e677afed2e5fd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &704148648056716530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100041130004973116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de6b732ac0705f447af9d35fd9c21301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: 9a8a79add348f674fa0ce3173351e939, type: 2}
+  currentState: 0
+  previousState: 0
+  animator: {fileID: 1723562870623342892}
+  spriteRenderer: {fileID: 2897473412527247979}
+  horizontalMovement: {fileID: 3736710948348231784}
+  jumpMovement: {fileID: 3413707028943592630}
+  collisionRetriever: {fileID: 8639945992801498379}
+  wallMovement: {fileID: 4287036543824018881}
+  afterImageEffect: {fileID: 0}
+  health: {fileID: 7295298282905375116}
+--- !u!114 &7295298282905375116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100041130004973116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f658acd1ab0cf24eac030b39e6d6ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  currentHealth: 0
+  factionId: 1
+  hurtStateDuration: 0.4
+  hurtStateTimer: 0
+--- !u!114 &3413707028943592630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100041130004973116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c931abe40cd60419de9da9f9102088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpHeight: 4.5
@@ -771,81 +852,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4287036543824018881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9100041130004973116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 824941a99a1e5704a940132f273ebe1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _wallSlideMaxSpeed: 5
-  _wallJumpClimb: {x: 12, y: 15}
-  _wallJumpBounce: {x: 10.7, y: 15}
-  _wallJumpLeap: {x: 14, y: 15}
-  _wallStickTime: 0.25
---- !u!95 &1723562870623342892
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9100041130004973116}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bab25ae7cf6dcad41a8e677afed2e5fd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &704148648056716530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9100041130004973116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de6b732ac0705f447af9d35fd9c21301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: 9a8a79add348f674fa0ce3173351e939, type: 2}
-  currentState: 0
-  previousState: 0
-  animator: {fileID: 1723562870623342892}
-  spriteRenderer: {fileID: 2897473412527247979}
-  horizontalMovement: {fileID: 3736710948348231784}
-  jumpMovement: {fileID: 2767170608841250987}
-  collisionRetriever: {fileID: 8639945992801498379}
-  wallMovement: {fileID: 4287036543824018881}
-  afterImageEffect: {fileID: 0}
-  health: {fileID: 7295298282905375116}
---- !u!114 &7295298282905375116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9100041130004973116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f658acd1ab0cf24eac030b39e6d6ed1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 3
-  currentHealth: 0
-  factionId: 1
-  hurtStateDuration: 0.4
-  hurtStateTimer: 0

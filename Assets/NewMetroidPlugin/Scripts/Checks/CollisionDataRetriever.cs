@@ -8,6 +8,7 @@ public class CollisionDataRetriever : MonoBehaviour
     public Vector2 ContactNormal { get; private set; }
 
     private PhysicsMaterial2D _material;
+    [SerializeField] private LayerMask stickableLayer;
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -32,7 +33,6 @@ public class CollisionDataRetriever : MonoBehaviour
     {
         for (int i = 0; i < collision.contactCount; i++)
         {
-            Debug.Log(collision.collider.gameObject.layer);
             ContactNormal = collision.GetContact(i).normal;
             OnGround |= ContactNormal.y >= 0.9f;
             OnWall = Mathf.Abs(ContactNormal.x) >= 0.9f;

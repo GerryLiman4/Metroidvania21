@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AIController", menuName = "InputController/AIController")]
@@ -12,6 +13,13 @@ public class AIControllerConfiguration : InputController
 
     private RaycastHit2D _groundInfoBottom;
     private RaycastHit2D _groundInfoTop;
+
+    public override event Action Attack;
+
+    public override bool RetrieveAttackInput(GameObject gameObject)
+    {
+        return false;
+    }
 
     public override bool RetrieveDashInput(GameObject gameObject)
     {
@@ -35,14 +43,19 @@ public class AIControllerConfiguration : InputController
         Debug.DrawRay(new Vector2(gameObject.transform.position.x + (_xOffset * gameObject.transform.localScale.x), gameObject.transform.position.y),
             Vector2.right * _topDistance * gameObject.transform.localScale.x, Color.green);
 
+        float direction = gameObject.transform.localScale.x;
+
         if (_groundInfoTop.collider == true || _groundInfoBottom.collider == false)
         {
-            gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y);
+            direction = gameObject.transform.localScale.x * -1f;
         }
 
-        return gameObject.transform.localScale.x;
+        return direction;
     }
-
+    private void OnDestroy()
+    {
+        Attack = null;
+    }
 }
 
 

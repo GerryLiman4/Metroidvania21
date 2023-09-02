@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public enum AnimationId
 {
     Idle,
     Run,
     Jump,
     Fall,
+    Attack1,
+    Attack2,
+    Attack3
 }
 
 public enum AnimationVariableId
@@ -18,4 +17,7 @@ public enum AnimationVariableId
     Jump,
     Fall,
     Grounded,
+    Attack1,
+    Attack2,
+    Attack3
 }

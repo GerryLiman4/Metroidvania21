@@ -5,29 +5,29 @@ using UnityEngine;
 [RequireComponent(typeof(Controller), typeof(CollisionDataRetriever), typeof(Rigidbody2D))]
 public class Jump : MonoBehaviour
 {
-    [SerializeField, Range(0f, 10f)] private float _jumpHeight = 4.5f;
-    [SerializeField, Range(0, 5)] private int _maxAirJumps = 1;
-    [SerializeField, Range(0f, 5f)] private float _downwardMovementMultiplier = 5f;
-    [SerializeField, Range(0f, 5f)] private float _upwardMovementMultiplier = 4f;
-    [SerializeField, Range(0f, 0.3f)] private float _coyoteTime = 0.2f;
-    [SerializeField, Range(0f, 0.3f)] private float _jumpBufferTime = 0.2f;
+    [SerializeField, Range(0f, 10f)] protected float _jumpHeight = 4.5f;
+    [SerializeField, Range(0, 5)] protected int _maxAirJumps = 1;
+    [SerializeField, Range(0f, 5f)] protected float _downwardMovementMultiplier = 5f;
+    [SerializeField, Range(0f, 5f)] protected float _upwardMovementMultiplier = 4f;
+    [SerializeField, Range(0f, 0.3f)] protected float _coyoteTime = 0.2f;
+    [SerializeField, Range(0f, 0.3f)] protected float _jumpBufferTime = 0.2f;
 
     [SerializeField] protected bool hasKnockback = false;
     [SerializeField] protected float knockbackForce = 1.5f;
 
     [SerializeField] AnimationCurve knockbackCurve;
 
-    private Rigidbody2D _body;
-    private Vector2 _velocity;
+    protected Rigidbody2D _body;
+    protected Vector2 _velocity;
 
-    private int _jumpPhase;
-    private float _defaultGravityScale, _jumpSpeed, _coyoteCounter, _jumpBufferCounter;
+    protected int _jumpPhase;
+    protected float _defaultGravityScale, _jumpSpeed, _coyoteCounter, _jumpBufferCounter;
 
-    private bool _desiredJump, _onGround, _isJumping, _isJumpReset;
+    protected bool _desiredJump, _onGround, _isJumping, _isJumpReset;
 
-    public event Action<AnimationVariableId, bool> SetAnimationBool;
+    public virtual event Action<AnimationVariableId, bool> SetAnimationBool;
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         _body = GetComponent<Rigidbody2D>();
 
@@ -121,12 +121,6 @@ public class Jump : MonoBehaviour
             _velocity.y += _jumpSpeed;
         }
     }
-    public void SetAirDashCondition()
-    {
-        _body.gravityScale = 0f;
-        _velocity = new Vector2(_body.velocity.x, 0f);
-        _body.velocity = _velocity;
-    }
     public virtual void SetKnockback(float time,Vector3 direction)
     {
         if (!hasKnockback) return;
@@ -136,7 +130,7 @@ public class Jump : MonoBehaviour
         _body.velocity = _velocity;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         SetAnimationBool = null;
     }

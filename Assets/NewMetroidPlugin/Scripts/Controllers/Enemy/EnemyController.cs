@@ -1,42 +1,30 @@
-using System;
 using UnityEngine;
 
-public class PlayerController : Controller
+public class EnemyController : Controller
 {
-    [SerializeField] protected Animator animator;
-    [SerializeField] protected SpriteRenderer spriteRenderer;
-    [SerializeField] protected PlayerMove horizontalMovement;
-    [SerializeField] protected PlayerJump jumpMovement;
-    [SerializeField] protected CollisionDataRetriever collisionRetriever;
-    [SerializeField] protected WallInteractor wallMovement;
-    [SerializeField] protected AfterImageEffectPool afterImageEffect;
-    [SerializeField] protected PlayerHealth health;
-    [SerializeField] protected AttackManager attackMovement;
+    [SerializeField] public Animator animator;
+    [SerializeField] public SpriteRenderer spriteRenderer;
+    [SerializeField] public Move horizontalMovement;
+    [SerializeField] public Jump jumpMovement;
+    [SerializeField] public CollisionDataRetriever collisionRetriever;
+    [SerializeField] public WallInteractor wallMovement;
+    [SerializeField] public HealthManager health;
+
     protected void Awake()
     {
         horizontalMovement.SetAnimationFloat += OnSetAnimation;
         horizontalMovement.SetAnimationBool += OnSetAnimation;
-        horizontalMovement.SpawnAfterImage += SpawnAfterImage;
-        horizontalMovement.ChangeState += OnChangeState;
 
         jumpMovement.SetAnimationBool += OnSetAnimation;
 
         health.ChangeState += OnChangeState;
         health.knockbackTime += OnKnockbackState;
-
-        input.Attack += OnAttack;
     }
-
-    private void OnAttack()
-    {
-        attackMovement.Attack();
-    }
-
-    private void OnKnockbackState(float totalTime,Vector3 direction)
+    private void OnKnockbackState(float totalTime, Vector3 direction)
     {
         horizontalMovement.Flip(transform, direction.x > 0 ? 1 : -1);
         horizontalMovement.SetKnockback(totalTime, direction);
-        jumpMovement.SetKnockback(totalTime,direction);
+        jumpMovement.SetKnockback(totalTime, direction);
     }
 
     private void OnChangeState(StateId stateId)
@@ -44,17 +32,10 @@ public class PlayerController : Controller
         previousState = currentState;
         currentState = stateId;
     }
-
     private void Start()
     {
-        afterImageEffect.Initialize(spriteRenderer, transform);
         health.Initialize();
     }
-    private void SpawnAfterImage()
-    {
-        afterImageEffect.GetFromPool();
-    }
-
     protected void OnSetAnimation(AnimationVariableId animationVariable, float amount)
     {
         animator.SetFloat(animationVariable.ToString(), amount);
@@ -63,12 +44,10 @@ public class PlayerController : Controller
     {
         animator.SetBool(animationVariable.ToString(), isTrue);
     }
-
     protected void Update()
     {
         // horizontal movement
         horizontalMovement.HorizontalInput(input.RetrieveMoveInput(this.gameObject));
-        horizontalMovement.DashInput(input.RetrieveDashInput(this.gameObject));
         horizontalMovement.LimitMaxSpeed(collisionRetriever.Friction);
         horizontalMovement.Flip(transform);
 
@@ -85,9 +64,6 @@ public class PlayerController : Controller
             case (StateId.AirDash):
                 // horizontal movement
                 horizontalMovement.MoveHorizontal(collisionRetriever.OnGround, input.RetrieveMoveInput(this.gameObject));
-
-                // jump Movement
-                jumpMovement.SetAirDashCondition();
                 break;
             case (StateId.Hurt):
                 break;
@@ -106,15 +82,10 @@ public class PlayerController : Controller
     {
         horizontalMovement.SetAnimationFloat -= OnSetAnimation;
         horizontalMovement.SetAnimationBool -= OnSetAnimation;
-        horizontalMovement.SpawnAfterImage -= SpawnAfterImage;
-        horizontalMovement.ChangeState -= OnChangeState;
 
         jumpMovement.SetAnimationBool -= OnSetAnimation;
 
         health.ChangeState -= OnChangeState;
         health.knockbackTime -= OnKnockbackState;
-
-        input.Attack -= OnAttack;
     }
 }
-
