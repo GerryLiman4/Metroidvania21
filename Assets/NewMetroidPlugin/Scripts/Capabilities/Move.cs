@@ -9,9 +9,10 @@ namespace J98214
     [RequireComponent(typeof(Controller), typeof(CollisionDataRetriever), typeof(Rigidbody2D))]
     public class Move : MonoBehaviour
     {
-        [SerializeField, Range(0f, 100f)] private float _maxSpeed = 5.5f;
+        [SerializeField, Range(0f, 100f)] private float _maxSpeed = 10f;
         [SerializeField, Range(0f, 100f)] private float _maxAcceleration = 100f;
         [SerializeField, Range(0f, 100f)] private float _maxAirAcceleration = 100f;
+        [SerializeField] private TrailRenderer tr;
 
         private Controller _controller;
         private Vector2 _direction, _desiredVelocity, _velocity;
@@ -20,6 +21,12 @@ namespace J98214
 
         private float _maxSpeedChange, _acceleration;
         private bool _onGround;
+
+        private bool canDash = true;
+        private bool isDashing;
+         private float dashingPower = 35f;
+         private float dashingTime = 0.5f;
+         private float dashingCooldown = 0.5f;
 
         private void Awake()
         {
@@ -35,6 +42,14 @@ namespace J98214
             float moveSpeed = Mathf.Abs(_desiredVelocity.x);
             _controller.animator.SetFloat(AnimationVariableId.MoveSpeed.ToString(), moveSpeed);
             Flip();
+            if (isDashing)
+            {
+                return;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+            {
+                StartCoroutine(Dash());
+            }
         }
 
         private void Flip()
@@ -68,12 +83,31 @@ namespace J98214
             _controller.animator.SetBool(AnimationVariableId.Fall.ToString(), _body.velocity.y > 0 ? false : true);
             _controller.animator.SetBool(AnimationVariableId.Grounded.ToString(), _onGround);
             if (_body.velocity.y <= 0) _controller.animator.SetBool(AnimationVariableId.Jump.ToString(), false);
-
+            if (isDashing)
+            {
+                return;
+            }
         }
 
         public Vector2 GetMoveDirection()
         {
             return _direction;
+        }
+
+        private IEnumerator Dash()
+        {
+            canDash = false;
+            isDashing = true;
+            float originalGravity = _body.gravityScale;
+            _body.gravityScale = 0f;
+            _body.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+            tr.emitting = true;
+            yield return new WaitForSeconds(dashingTime);
+            tr.emitting = false;
+            _body.gravityScale = originalGravity;
+            isDashing = false;
+            yield return new WaitForSeconds(dashingCooldown);
+            canDash = true;
         }
     }
 }

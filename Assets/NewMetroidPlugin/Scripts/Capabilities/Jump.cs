@@ -24,6 +24,11 @@ namespace J98214
         private float _defaultGravityScale, _jumpSpeed, _coyoteCounter, _jumpBufferCounter;
 
         private bool _desiredJump, _onGround, _isJumping, _isJumpReset;
+        private bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 24f;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
 
 
         // Start is called before the first frame update
@@ -73,11 +78,11 @@ namespace J98214
             {
                 _isJumpReset = true;
             }
-                if (_jumpBufferCounter > 0)
-                {
-                    JumpAction();
-                }
-            
+            if (_jumpBufferCounter > 0)
+            {
+                JumpAction();
+            }
+
 
             if (_controller.input.RetrieveJumpInput(this.gameObject) && _body.velocity.y > 0)
             {
@@ -93,6 +98,7 @@ namespace J98214
             }
 
             _body.velocity = _velocity;
+
         }
         private void JumpAction()
         {
