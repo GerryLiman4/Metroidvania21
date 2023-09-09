@@ -171,6 +171,7 @@ public class PlayerMove : Move
     {
         _velocity = new Vector2(0f, _body.velocity.y);
         _body.velocity = _velocity;
+        dashTimeLeft = 0;
     }
 
     private void OnDestroy()

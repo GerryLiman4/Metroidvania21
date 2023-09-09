@@ -17,38 +17,49 @@ public class PlayerController : Controller
         horizontalMovement.SetAnimationFloat += OnSetAnimation;
         horizontalMovement.SetAnimationBool += OnSetAnimation;
         horizontalMovement.SpawnAfterImage += SpawnAfterImage;
-        horizontalMovement.ChangeState += OnChangeState;
+        horizontalMovement.ChangeState += ChangeState;
 
         jumpMovement.SetAnimationBool += OnSetAnimation;
 
-        health.ChangeState += OnChangeState;
+        health.ChangeState += ChangeState;
         health.knockbackTime += OnKnockbackState;
 
         input.Attack += OnAttack;
+        attackMovement.SetAnimationTrigger += OnSetAnimationTrigger;
     }
 
     private void OnAttack()
     {
+        if (!collisionRetriever.OnGround) return;
+        horizontalMovement.StopMove();
         attackMovement.Attack();
+        ChangeState(StateId.Attack);
     }
-
-    private void OnKnockbackState(float totalTime,Vector3 direction)
+    public void StopAttack()
+    {
+        attackMovement.StopAttack();
+        ChangeState(StateId.Idle);
+    }
+    public void EnableHitBox()
+    {
+        attackMovement.SetHitBox(true);
+    }
+    public void DisableHitBox()
+    {
+        attackMovement.SetHitBox(false);
+    }
+    private void OnKnockbackState(float totalTime, Vector3 direction)
     {
         horizontalMovement.Flip(transform, direction.x > 0 ? 1 : -1);
         horizontalMovement.SetKnockback(totalTime, direction);
-        jumpMovement.SetKnockback(totalTime,direction);
-    }
-
-    private void OnChangeState(StateId stateId)
-    {
-        previousState = currentState;
-        currentState = stateId;
+        jumpMovement.SetKnockback(totalTime, direction);
     }
 
     private void Start()
     {
         afterImageEffect.Initialize(spriteRenderer, transform);
         health.Initialize();
+        attackMovement.Initialize(health.GetFactionId());
     }
     private void SpawnAfterImage()
     {
@@ -63,7 +74,10 @@ public class PlayerController : Controller
     {
         animator.SetBool(animationVariable.ToString(), isTrue);
     }
-
+    private void OnSetAnimationTrigger(AnimationVariableId animationVariable)
+    {
+        animator.SetTrigger(animationVariable.ToString());
+    }
     protected void Update()
     {
         // horizontal movement
@@ -91,6 +105,10 @@ public class PlayerController : Controller
                 break;
             case (StateId.Hurt):
                 break;
+            case (StateId.Attack):
+                // jump Movement
+                jumpMovement.JumpMovement(input.RetrieveJumpInput(this.gameObject), collisionRetriever.OnGround);
+                break;
             default:
                 // horizontal movement
                 horizontalMovement.MoveHorizontal(collisionRetriever.OnGround, input.RetrieveMoveInput(this.gameObject));
@@ -107,11 +125,11 @@ public class PlayerController : Controller
         horizontalMovement.SetAnimationFloat -= OnSetAnimation;
         horizontalMovement.SetAnimationBool -= OnSetAnimation;
         horizontalMovement.SpawnAfterImage -= SpawnAfterImage;
-        horizontalMovement.ChangeState -= OnChangeState;
+        horizontalMovement.ChangeState -= ChangeState;
 
         jumpMovement.SetAnimationBool -= OnSetAnimation;
 
-        health.ChangeState -= OnChangeState;
+        health.ChangeState -= ChangeState;
         health.knockbackTime -= OnKnockbackState;
 
         input.Attack -= OnAttack;
