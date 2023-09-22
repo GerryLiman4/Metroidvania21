@@ -4,6 +4,8 @@ public enum AnimationId
     Run,
     Jump,
     Fall,
+    WallSlide,
+    WallJump,
     Attack1,
     Attack2,
     Attack3
@@ -17,6 +19,8 @@ public enum AnimationVariableId
     Jump,
     Fall,
     Grounded,
+    OnWall,
+    WallJump,
     Attack1,
     Attack2,
     Attack3

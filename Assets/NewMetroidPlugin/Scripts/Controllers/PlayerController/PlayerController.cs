@@ -21,6 +21,8 @@ public class PlayerController : Controller
 
         jumpMovement.SetAnimationBool += OnSetAnimation;
 
+        wallMovement.SetAnimationBool += OnSetAnimation;
+
         health.ChangeState += ChangeState;
         health.knockbackTime += OnKnockbackState;
 
@@ -53,6 +55,16 @@ public class PlayerController : Controller
         horizontalMovement.Flip(transform, direction.x > 0 ? 1 : -1);
         horizontalMovement.SetKnockback(totalTime, direction);
         jumpMovement.SetKnockback(totalTime, direction);
+    }
+    public override void ChangeState(StateId nextState)
+    {
+        if (currentState == StateId.Attack && nextState == StateId.Hurt)
+        {
+            attackMovement.StopAttack();
+            DisableHitBox();
+        }
+        previousState = currentState;
+        currentState = nextState;
     }
 
     private void Start()

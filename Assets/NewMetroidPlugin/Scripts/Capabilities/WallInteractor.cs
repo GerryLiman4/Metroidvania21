@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-
 
 [RequireComponent(typeof(Controller), typeof(CollisionDataRetriever), typeof(Rigidbody2D))]
 public class WallInteractor : MonoBehaviour
@@ -22,6 +22,7 @@ public class WallInteractor : MonoBehaviour
     private bool _onWall, _onGround, _desiredJump, _isJumpReset;
     private float _wallDirectionX, _wallStickCounter;
 
+    public virtual event Action<AnimationVariableId, bool> SetAnimationBool;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +77,8 @@ public class WallInteractor : MonoBehaviour
         }
         #endregion
 
+        SetAnimationBool?.Invoke(AnimationVariableId.OnWall, _onWall);
+
         #region Wall Jump
 
         if ((_onWall && _velocity.x == 0) || _onGround)
@@ -115,6 +118,7 @@ public class WallInteractor : MonoBehaviour
                 _isJumpReset = true;
             }
         }
+        SetAnimationBool?.Invoke(AnimationVariableId.WallJump, WallJumping);
         #endregion
 
         _body.velocity = _velocity;

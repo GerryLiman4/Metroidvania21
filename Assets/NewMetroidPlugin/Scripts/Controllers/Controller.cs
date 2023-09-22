@@ -6,7 +6,7 @@ public class Controller : MonoBehaviour
     [SerializeField] protected StateId currentState;
     [SerializeField] protected StateId previousState;
 
-    public void ChangeState(StateId nextState)
+    public virtual void ChangeState(StateId nextState)
     {
         previousState = currentState;
         currentState = nextState;
